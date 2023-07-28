@@ -80,9 +80,9 @@ def create_account(email, password):
 
     driver.quit()
 
+threads = []
 num_threads = int(input("Enter the number of threads to use: "))
 
-threads = []
 for _ in range(num_threads):
     email_length = random.randint(5, 10)
     password_length = random.randint(8, 12)
@@ -96,4 +96,3 @@ for _ in range(num_threads):
 
 for thread in threads:
     thread.join()
-
