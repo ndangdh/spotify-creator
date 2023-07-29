@@ -72,8 +72,9 @@ def create_account(email, password):
     finish_button.click()
 
     WebDriverWait(driver, 60).until(
-        EC.url_contains("https://www.spotify.com/in-en/download/windows/")
+        EC.url_contains("https://www.spotify.com/in-en/download/")
     )
+    
     with lock:  # Use lock to ensure each thread completes its registration before the next one starts
         with open("acc.txt", "a") as file:
             file.write(f"{email}:{password}\n")
@@ -83,12 +84,17 @@ def create_account(email, password):
 threads = []
 num_threads = int(input("Enter the number of threads to use: "))
 
+password_choice = input("Enter your password choice (1 for generated password, 2 for your own password): ")
+
+if password_choice == "1":
+    password_length = random.randint(8, 12)
+    password = ''.join(random.choices(string.ascii_letters + string.digits, k=password_length))
+else:
+    password = input("Enter your desired password: ")
+
 for _ in range(num_threads):
     email_length = random.randint(5, 10)
-    password_length = random.randint(8, 12)
-
     email = ''.join(random.choices(string.ascii_lowercase, k=email_length)) + "@me.tv"
-    password = ''.join(random.choices(string.ascii_letters + string.digits, k=password_length))
 
     thread = threading.Thread(target=create_account, args=(email, password))
     threads.append(thread)
