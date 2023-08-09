@@ -29,7 +29,7 @@ def handle_cookie_banner(driver):
 
 def create_account(email, password):
     options = webdriver.FirefoxOptions()
-    options.headless = True
+    options.add_argument("-headless")
     driver = webdriver.Firefox(options=options)
     driver.get("https://www.spotify.com/in-en/signup")
 
@@ -86,19 +86,20 @@ def create_account(email, password):
     with lock:  # Use lock to ensure each thread completes its registration before the next one starts
         with open("acc.txt", "a") as file:
             file.write(f"{email}:{password}\n")
+            print(f"Account created - Email: {email}, Password: {password}")
 
     driver.quit()
 
 threads = []
-num_threads = int(input("Enter the number of threads to use: "))
+num_threads = int(input("Amount of Account: "))
 
-password_choice = input("Enter your password choice (1 for generated password, 2 for your own password): ")
+password_choice = input("Password choice (1 Generated Pass, 2 Own Pass): ")
 
 if password_choice == "1":
     password_length = random.randint(8, 12)
     password = ''.join(random.choices(string.ascii_letters + string.digits, k=password_length))
 else:
-    password = input("Enter your desired password: ")
+    password = input("Password: ")
 
 for _ in range(num_threads):
     email_length = random.randint(5, 10)
@@ -110,3 +111,5 @@ for _ in range(num_threads):
 
 for thread in threads:
     thread.join()
+
+print("Accounts created successfully. Saved in acc.txt")
