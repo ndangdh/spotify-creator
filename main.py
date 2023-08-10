@@ -45,9 +45,7 @@ def create_account(email, password):
 
     # Generate random values for year, month, and day
     random_year = str(random.randint(1990, 2000))
-    random_month = random.choice(
-        ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November',
-         'Desember'])
+    random_month = random.choice(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'])
     random_day = str(random.randint(1, 28))
 
     year_input = driver.find_element(By.CSS_SELECTOR, "#year")
@@ -57,8 +55,8 @@ def create_account(email, password):
     month_dropdown = driver.find_element(By.NAME, "month")
     month_dropdown.click()
 
-    # Now click on the desired month option by locating it through its text value
-    desired_month_option = driver.find_element(By.XPATH, f"//option[text()='{random_month}']")
+    # Now click on the desired month option by locating it through its value
+    desired_month_option = driver.find_element(By.XPATH, f"//option[@value='{random_month}']")
     desired_month_option.click()
 
     day_input = driver.find_element(By.CSS_SELECTOR, "#day")
