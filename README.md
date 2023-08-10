@@ -13,3 +13,4 @@ Make Spotify Account Proxyless
 - main.py ( the script will opening the browser)
 - main2.py ( its headless version, so the browser will running in the background. also it will give a better result)
 - Result will saved in acc.txt
+- let me know if there was an error : https://t.me/Ndangxsp
